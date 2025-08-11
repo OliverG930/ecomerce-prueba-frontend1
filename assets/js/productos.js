@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const productsContainer = document.getElementById('productsContainer');
     const paginationContainer = document.getElementById('pagination');
     let currentPage = 1;
-    const pageSize = 8;
-
+    const pageSize = 10;
+//ver...
     await loadProducts(currentPage);
 
     async function loadProducts(page) {
