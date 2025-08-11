@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online - Inicio</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">TiendaOnline</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Inicio</a>
+                <a href="productos.html" class="nav-link">Productos</a>
+                <a href="categorias.html" class="nav-link">Categorías</a>
+                <div class="auth-buttons">
+                    <button id="loginBtn" class="btn btn-outline">Iniciar Sesión</button>
+                    <button id="registerBtn" class="btn btn-primary">Registrarse</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <section class="hero">
+            <div class="container">
+                <h2>Bienvenido a nuestra tienda</h2>
+                <p>Los mejores productos al mejor precio</p>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <div class="container">
+                <h3>Productos Destacados</h3>
+                <div class="products-grid" id="productsContainer">
+                    <!-- Productos se cargarán aquí dinámicamente -->
+                </div>
+                <div class="pagination" id="pagination">
+                    <!-- Paginación se cargará aquí -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 TiendaOnline. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/productos.js"></script>
+    <script src="assets/js/auth.js"></script>
+</body>
+</html>
