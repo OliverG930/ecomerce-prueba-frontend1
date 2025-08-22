@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos Nuestros Productos - TiendaOnline</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">TiendaOnline</a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="productos.html" class="nav-link active">Productos</a>
+                    <a href="categorias.html" class="nav-link">Categorías</a>
+                </div>
+                <div class="auth-buttons">
+                    <!-- Los botones de autenticación se gestionarán dinámicamente aquí por auth.js -->
+                    <button class="btn btn-outline">Iniciar Sesión</button>
+                    <button class="btn btn-primary">Registrarse</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title" style="margin-top: 2rem;">Explora Todos Nuestros Productos</h2>
+        
+        <section id="productsContainer" class="products-grid">
+            <div class="loading">Cargando productos...</div>
+        </section>
+
+        <section id="pagination" class="pagination">
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TiendaOnline. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/auth.js"></script> <!-- ✨ Nuevo script de autenticación -->
+    <script src="assets/js/productos.js"></script>
+</body>
+</html>
