@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Productos - TiendaOnline</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="index.html" class="logo">TiendaOnline</a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <a href="productos.html" class="nav-link">Productos</a>
+                    <a href="categorias.html" class="nav-link" id="navCategoriasLink">Categorías</a>
+                    <a href="agregar-productos.html" class="nav-link active" id="navAdminProductosLink">Administrar Productos</a>
+                </div>
+                <div class="auth-buttons">
+                    <!-- Botones de login/logout gestionados por auth.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container admin-page">
+        <h2 class="section-title" style="margin-top: 2rem;">Administrar Productos</h2>
+
+        <!-- Formulario Añadir Producto -->
+        <section class="form-section card-style">
+            <h3 class="subsection-title">Añadir Nuevo Producto</h3>
+            <form id="addProductForm" class="product-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="precio">Precio:</label>
+                    <input type="number" id="precio" name="precio" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="stock">Stock:</label>
+                    <input type="number" id="stock" name="stock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoria_id">Categoría:</label>
+                    <select id="categoria_id" name="categoria_id" required>
+                        <!-- Categorías cargadas dinámicamente -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full-width">Añadir Producto</button>
+                <div id="addMessage" class="auth-message" style="display: none;"></div>
+            </form>
+        </section>
+
+        <!-- Lista de Productos -->
+        <section class="table-section card-style" style="margin-top: 3rem;">
+            <h3 class="subsection-title">Productos Existentes</h3>
+            <div class="table-responsive">
+                <table class="product-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                        <tr><td colspan="6" class="loading">Cargando productos...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination" class="pagination" style="margin-top: 1.5rem;">
+                <!-- Paginación dinámica -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 TiendaOnline. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Editar Producto -->
+    <div id="editProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="editProductModal">&times;</span>
+            <h3 class="subsection-title">Editar Producto</h3>
+            <form id="editProductForm" class="product-form">
+                <input type="hidden" id="editProductId" name="id">
+                <div class="form-group">
+                    <label for="editNombre">Nombre:</label>
+                    <input type="text" id="editNombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="editDescripcion">Descripción:</label>
+                    <textarea id="editDescripcion" name="descripcion" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="editPrecio">Precio:</label>
+                    <input type="number" id="editPrecio" name="precio" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="editStock">Stock:</label>
+                    <input type="number" id="editStock" name="stock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCategoria_id">Categoría:</label>
+                    <select id="editCategoria_id" name="categoria_id" required>
+                        <!-- Categorías cargadas dinámicamente -->
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full-width">Guardar Cambios</button>
+                <div id="editMessage" class="auth-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Confirmar Eliminación -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" data-modal="deleteConfirmModal">&times;</span>
+            <h3 class="subsection-title">Confirmar Eliminación</h3>
+            <p>¿Estás seguro de eliminar el producto "<strong id="deleteProductName"></strong>"? Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button id="confirmDeleteBtn" class="btn btn-danger">Eliminar</button>
+                <button class="btn btn-secondary close-modal-btn" data-modal="deleteConfirmModal">Cancelar</button>
+            </div>
+            <div id="deleteMessage" class="auth-message" style="display: none;"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/agregar-productos.js"></script>
+</body>
+</html>

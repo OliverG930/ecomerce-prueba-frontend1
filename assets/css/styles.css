@@ -690,3 +690,175 @@ input[type=number]::-webkit-outer-spin-button {
         font-size: 1.8rem;
     }
 }
+
+/* Ensure these styles are in your assets/css/styles.css */
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Oculto por defecto, JS lo cambia a 'flex' */
+    position: fixed; /* Fijo en la ventana */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite scroll si el contenido es muy grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente */
+    
+    /* Propiedades para centrar el contenido del modal */
+    display: flex; /* Usamos flexbox */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* Anula el margin: auto; del flexbox si existe conflicto */
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 90%; /* Ancho responsivo por defecto */
+    max-width: 500px; /* Ancho máximo para el modal */
+    border-radius: 0.75rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    position: relative; /* Para posicionar el botón de cerrar */
+    animation: fadeIn 0.3s ease-out; /* Animación de entrada */
+}
+
+/* Animación para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botón de cerrar el modal */
+.close-button {
+    color: #aaa;
+    float: right; /* Flota a la derecha del contenido */
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute; /* Posicionamiento absoluto */
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    line-height: 1; /* Para alinear el 'x' */
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para los botones de acción dentro del modal */
+.modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinear botones a la derecha */
+    gap: 1rem; /* Espacio entre los botones */
+    margin-top: 1.5rem;
+}
+
+.modal-actions .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+}
+
+/* Responsive adjustments for modal */
+@media (max-width: 640px) {
+    .modal-content {
+        width: 95%; /* Más ancho en pantallas pequeñas */
+        padding: 1rem;
+    }
+    .modal-actions {
+        flex-direction: column; /* Apilar botones en móviles */
+        gap: 0.5rem;
+    }
+    .modal-actions .btn {
+        width: 100%; /* Botones de ancho completo en móviles */
+    }
+}
+
+
+/* Resto de tus estilos existentes... */
+
+/* Ejemplo de estilos de botones que ya deberías tener o ajustar */
+.btn {
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #007bff; /* Color azul */
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d; /* Color gris */
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-danger {
+    background-color: #dc3545; /* Color rojo */
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-success {
+    background-color: #28a745; /* Color verde para editar */
+    color: white;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+
+/* Estilos para el formulario unificado */
+.form-actions {
+    display: flex;
+    flex-direction: row; /* Por defecto en fila */
+    justify-content: flex-end; /* Alinear a la derecha */
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-actions .btn-full-width {
+    width: auto; /* Desactiva el full-width cuando están en fila */
+}
+
+@media (max-width: 640px) {
+    .form-actions {
+        flex-direction: column; /* Apilar en móviles */
+    }
+    .form-actions .btn-full-width {
+        width: 100%; /* Ancho completo en móviles */
+    }
+}
+
+.auth-message {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    text-align: center;
+}
+.auth-message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.auth-message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
