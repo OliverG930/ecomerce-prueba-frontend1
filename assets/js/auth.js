@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Elementos comunes para la UI de autenticación ---
     const authButtonsContainer = document.querySelector('.auth-buttons');
     const navLinksContainer = document.querySelector('.nav-links'); // Contenedor de los enlaces de navegación
+    const categoriasLink = document.getElementById('navCategoriasLink'); // Referencia al enlace de categorías
+    const adminProductosLink = document.getElementById('navAdminProductosLink'); // ✨ Referencia al enlace de Administrar Productos ✨
 
     /**
      * Muestra un mensaje en la interfaz de usuario.
@@ -20,14 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Guarda la información del usuario en localStorage.
-     * @param {Object} userData - Objeto con id, nombre, email del usuario.
+     * Guarda la información del usuario en localStorage, incluyendo el rolId.
+     * @param {Object} userData - Objeto con id, nombre, email y rolId del usuario.
      */
     function saveUserSession(userData) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userId', userData.id);
         localStorage.setItem('userName', userData.nombre);
         localStorage.setItem('userEmail', userData.email);
+        localStorage.setItem('userRolId', userData.rolId); // Guardar el rolId
         console.log('Sesión de usuario guardada:', userData);
     }
 
@@ -39,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem('userId');
         localStorage.removeItem('userName');
         localStorage.removeItem('userEmail');
+        localStorage.removeItem('userRolId'); // Eliminar el rolId
         console.log('Sesión de usuario cerrada.');
     }
 
@@ -51,14 +55,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Actualiza los botones del encabezado según el estado de autenticación.
+     * Obtiene el ID del rol del usuario logueado.
+     * @returns {number|null} El ID del rol o null si no está logueado o no tiene rol.
+     */
+    function getUserRolId() {
+        const rolId = localStorage.getItem('userRolId');
+        return rolId ? parseInt(rolId) : null;
+    }
+
+    /**
+     * Actualiza los botones del encabezado y la visibilidad de los enlaces de navegación
+     * según el estado de autenticación y el rol del usuario.
      */
     function updateHeaderAuthUI() {
-        if (!authButtonsContainer) return; // Asegura que el contenedor exista
+        if (!authButtonsContainer) return; // Asegura que el contenedor de botones exista
 
         authButtonsContainer.innerHTML = ''; // Limpia los botones existentes
+        
+        const isLoggedIn = getAuthStatus();
+        const userRolId = getUserRolId();
+        const isAdmin = isLoggedIn && userRolId === 1; // Rol 1 para administrador
 
-        if (getAuthStatus()) {
+        // Control de visibilidad para el enlace de Categorías
+        if (categoriasLink) {
+            categoriasLink.style.display = isAdmin ? '' : 'none'; // Mostrar si es admin, ocultar en caso contrario
+        }
+
+        // ✨ Control de visibilidad para el enlace de Administrar Productos ✨
+        if (adminProductosLink) {
+            adminProductosLink.style.display = isAdmin ? '' : 'none'; // Mostrar si es admin, ocultar en caso contrario
+        }
+
+        if (isLoggedIn) {
             const userName = localStorage.getItem('userName') || 'Usuario';
             
             const welcomeSpan = document.createElement('span');
@@ -113,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (result.success) {
                 displayMessage(registerMessage, 'Registro exitoso. ¡Ahora puedes iniciar sesión!', 'success');
                 form.reset(); // Limpiar el formulario
-                // Opcional: Redirigir a la página de login
                 setTimeout(() => window.location.href = 'login.html', 2000);
             } else {
                 displayMessage(registerMessage, result.error || 'Error al registrarse', 'error');
@@ -150,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (result.success) {
                 displayMessage(loginMessage, 'Inicio de sesión exitoso. Redirigiendo...', 'success');
-                saveUserSession(result.client); // Guarda la sesión del usuario
+                saveUserSession(result.client); // Guarda la sesión del usuario, incluyendo rolId
                 updateHeaderAuthUI(); // Actualiza el encabezado
                 setTimeout(() => window.location.href = 'index.html', 1500); // Redirige al home
             } else {
@@ -166,10 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
      * Maneja el cierre de sesión del usuario.
      */
     function handleLogout() {
-        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) { // Usar modal personalizado en prod.
+        if (confirm('¿Estás seguro de que quieres cerrar sesión?')) { 
             clearUserSession();
             updateHeaderAuthUI();
-            // Redirigir al inicio o a la página de login si es necesario
             window.location.href = 'index.html'; 
         }
     }
@@ -177,7 +203,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Inicialización ---
     updateHeaderAuthUI(); // Actualiza el encabezado al cargar cualquier página que incluya auth.js
 
-    // Asigna los manejadores de eventos a los formularios si existen en la página actual
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);

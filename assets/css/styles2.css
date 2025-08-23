@@ -1,0 +1,352 @@
+/* Variables (asegúrate de que estas sean consistentes con tu archivo principal) */
+:root {
+    --primary-color: #3b82f6;
+    --secondary-color: #1d4ed8;
+    --accent-color: #22c55e;
+    --danger-color: #ef4444; /* Rojo para acciones peligrosas */
+    --warning-color: #f59e0b; /* Amarillo para advertencias */
+    --text-color: #1f2937;
+    --light-text-color: #4b5563;
+    --background-light: #f9fafb;
+    --background-medium: #e5e7eb;
+    --white: #ffffff;
+    --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --border-radius-sm: 0.375rem;
+    --border-radius-md: 0.5rem;
+    --border-radius-lg: 0.75rem;
+    --transition-ease: all 0.2s ease-in-out;
+}
+
+/* --- Estilos base ya definidos (header, nav, botones, container, footer, etc.) --- */
+/* Asegúrate de que el resto de tu styles.css esté aquí */
+
+
+/* --- Estilos específicos de la página de administración --- */
+.admin-page {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+}
+
+.section-title {
+    margin-bottom: 2.5rem;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    text-align: center;
+    font-weight: 800;
+}
+
+.subsection-title {
+    font-size: 1.75rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.card-style {
+    background-color: var(--white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-medium);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Formularios de producto (Añadir/Editar) */
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.product-form input[type="text"],
+.product-form input[type="number"],
+.product-form textarea,
+.product-form select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--background-medium);
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color 0.2s ease;
+}
+
+.product-form input:focus,
+.product-form textarea:focus,
+.product-form select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.product-form textarea {
+    resize: vertical; /* Permitir redimensionamiento vertical */
+}
+
+/* Mensajes de formulario (success/error) */
+.auth-message { /* Reutiliza esta clase */
+    margin-top: 1rem;
+    padding: 0.8rem;
+    border-radius: var(--border-radius-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: none; /* Oculto por defecto */
+}
+.auth-message.success {
+    background-color: #dcfce7;
+    color: #16a34a;
+    border: 1px solid #4ade80;
+}
+.auth-message.error {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #f87171;
+}
+
+/* Tabla de Productos */
+.table-responsive {
+    overflow-x: auto; /* Para tablas grandes en pantallas pequeñas */
+}
+
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    min-width: 600px; /* Ancho mínimo para la tabla */
+}
+
+.product-table th,
+.product-table td {
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--background-medium);
+    text-align: left;
+}
+
+.product-table th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.product-table tbody tr:nth-child(even) {
+    background-color: var(--background-light);
+}
+
+.product-table tbody tr:hover {
+    background-color: #e0e7ff; /* Ligero hover para filas */
+}
+
+.product-table .loading,
+.product-table .no-products,
+.product-table .error-message {
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+    color: var(--light-text-color);
+}
+.product-table .error-message {
+    color: var(--danger-color);
+}
+
+/* Botones de acción en tabla */
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    margin-right: 0.5rem;
+}
+.btn-secondary {
+    background-color: #6b7280;
+    color: var(--white);
+}
+.btn-secondary:hover {
+    background-color: #4b5563;
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* --- Estilos de los Modales --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija para cubrir toda la pantalla */
+    z-index: 200; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilitar scroll si el contenido es muy grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semi-transparente oscuro */
+    display: flex; /* Usar flex para centrar */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: center; /* Centrar horizontalmente */
+}
+
+.modal-content {
+    background-color: var(--white);
+    margin: auto; /* Centrar el modal en la pantalla */
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-medium);
+    position: relative;
+    width: 90%;
+    max-width: 600px; /* Ancho máximo del contenido del modal */
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+.close-button {
+    color: var(--light-text-color);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-ease);
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.modal .subsection-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Animación para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Media Queries (Adaptabilidad) --- */
+@media (max-width: 768px) {
+    /* Ajustes generales ya definidos para header, hero, etc. */
+    .admin-page {
+        padding-top: 1.5rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .subsection-title {
+        font-size: 1.5rem;
+    }
+    .card-style {
+        padding: 1.5rem;
+    }
+    .product-form {
+        max-width: 100%;
+    }
+    .product-table th,
+    .product-table td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    .btn-sm {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+        margin-right: 0.3rem;
+    }
+    .modal-content {
+        padding: 1.5rem;
+        max-width: 95%;
+    }
+}
+
+/* Nuevo estilo para los botones de acción del formulario */
+.form-actions {
+    display: flex;
+    flex-direction: column; /* Apilar en dispositivos móviles */
+    gap: 0.5rem; /* Espacio entre botones */
+    margin-top: 1rem;
+}
+
+/* En pantallas más grandes, los botones pueden ir en fila */
+@media (min-width: 640px) { /* Por ejemplo, para sm: de Tailwind */
+    .form-actions {
+        flex-direction: row;
+        justify-content: flex-end; /* Alinear a la derecha si es posible */
+    }
+    .form-actions .btn-full-width {
+        width: auto; /* Desactivar ancho completo para ir en fila */
+        flex-grow: 1; /* Para que ocupen espacio equitativo */
+    }
+}
+
+/* Asegúrate de que estos estilos estén presentes o actualiza tu styles.css */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    /* ... otros estilos de btn-primary ... */
+}
+.btn-success { /* Nuevo estilo para el botón de Guardar Cambios */
+    background-color: var(--accent-color);
+    color: var(--white);
+    transition: var(--transition-ease);
+}
+.btn-success:hover {
+    background-color: #15803d; /* Un verde más oscuro al pasar el ratón */
+}
+.btn-secondary {
+    background-color: #6b7280;
+    color: var(--white);
+    /* ... otros estilos de btn-secondary ... */
+}
+.btn-secondary:hover {
+    background-color: #4b5563;
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--white);
+    /* ... otros estilos de btn-danger ... */
+}
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
+/* Ajuste para el display del modal (si no está ya en tu CSS) */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex; /* Usar flex para centrar contenido */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Para ocultar el modal inicialmente, el JS cambiará display: 'flex' */
